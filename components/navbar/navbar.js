@@ -21,12 +21,27 @@ export default function Navbar() {
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="#">
-                Login
+                Citizen Login
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                Register
+                Police Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Hospital Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Ambulance Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                PWD B&R Login
               </a>
             </li>
           </ul>
