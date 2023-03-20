@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import Head from "next/head";
 import Webcam from "react-webcam";
 import Navbar from "../../../components/navbar/navbar";
-import AccidentForm from "../../../components/accidentForm/accidentForm";
+import HazardForm from "../../../components/hazardForm/hazardForm";
 
 const videoConstraints = {
   width: 400,
@@ -38,7 +38,7 @@ export default function AccidentReport() {
   return (
     <div>
       <Navbar />
-      <AccidentForm
+      <HazardForm
         show={showForm}
         hide={showForm}
         toggleSwitch={toggleFormShow}

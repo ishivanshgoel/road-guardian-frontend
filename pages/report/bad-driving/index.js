@@ -3,6 +3,7 @@ import Head from "next/head";
 import Webcam from "react-webcam";
 import Navbar from "../../../components/navbar/navbar";
 import AccidentForm from "../../../components/accidentForm/accidentForm";
+import BadDrivingForm from "../../../components/badDrivingForm/badDrivingForm";
 
 const videoConstraints = {
   width: 400,
@@ -38,13 +39,14 @@ export default function AccidentReport() {
   return (
     <div>
       <Navbar />
-      <AccidentForm
+      <BadDrivingForm
         show={showForm}
         hide={showForm}
         toggleSwitch={toggleFormShow}
         setNoteForAmbulanceInModal={setNoteForAmbulanceInModal}
         setNoteForHospitalInModal={setNoteForHospitalInModal}
       />
+
 
       <Head>
         <title>Report Accident</title>

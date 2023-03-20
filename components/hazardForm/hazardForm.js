@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import Iframe from "react-iframe";
 import MapComponent from "../mapComponent/mapComponent";
 
-export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbulanceInModal, setNoteForHospitalInModal }) {
+export default function HazardForm({
+  show,
+  hide,
+  toggleSwitch,
+  setNoteForAmbulanceInModal,
+  setNoteForHospitalInModal,
+}) {
   const [location, setLocation] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -35,7 +40,7 @@ export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbul
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter" className="mb-0">
-          <i class="fe fe-activity"></i>&nbsp;Accident Report
+          <i className="fe fe-activity"></i>&nbsp;Accident Report
         </Modal.Title>
       </Modal.Header>
 
@@ -43,24 +48,16 @@ export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbul
         <div className="d-flex justify-content-center">
           <MapComponent longitude={longitude} latitude={latitude} />
         </div>
-        <form>
+        <div>
           <div class="form-group">
-            <label for="formGroupExampleInput">Note for Hospital</label>
-            <input type="text" class="form-control" placeholder="Optional" onChange={(e) => setNoteForHospitalInModal(e.target.value)} />
+            <label for="exampleFormControlTextarea3">Message</label>
+            <textarea
+              class="form-control"
+              rows="4"
+              placeholder="Optional"
+            ></textarea>
           </div>
-          <div class="form-group">
-            <label for="formGroupExampleInput">Note for Ambulance</label>
-            <input type="text" class="form-control" placeholder="Optional" onChange={(e) => setNoteForAmbulanceInModal(e.target.value)} />
-          </div>
-          <div class="form-group">
-            <label for="formGroupExampleInput">Is Hit and Run Case?</label>
-            <input
-              type="checkbox"
-              aria-label="Checkbox for following text input"
-              className="m-2"
-            />
-          </div>
-        </form>
+        </div>
       </Modal.Body>
 
       <Modal.Footer className="py-2">

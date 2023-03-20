@@ -46,24 +46,26 @@ export default function Dashboard() {
             <button
               type="button"
               className="btn btn-warning mx-2 w-50"
-              style={{ fontFamily: "Poppins" }}
               onClick={() => router.push("/report/accident")}
             >
               Report Accident
             </button>
           </div>
           <div className="d-flex justify-content-center my-2">
-            <button type="button" className="btn btn-primary mx-2 w-50">
+            <button
+              type="button"
+              className="btn btn-primary mx-2 w-50"
+              onClick={() => router.push("/report/hazard")}
+            >
               Report Hazard
             </button>
           </div>
-          <div className="d-flex justify-content-center my-2">
-            <button
-              type="button"
-              className="btn btn-danger mx-2 w-50"
-              style={{ fontFamily: "Poppins" }}
-            >
-              Report Bad Driving
+          <div
+            className="d-flex justify-content-center my-2"
+            onClick={() => router.push("/report/bad-driving")}
+          >
+            <button type="button" className="btn btn-danger mx-2 w-50">
+              Report Unsafe Driving
             </button>
           </div>
         </div>
