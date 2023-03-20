@@ -1,11 +1,22 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import Image from "next/image";
 import Ashoka from "../../public/ashoka.png";
 import Navbar from "../../components/navbar/navbar";
 import { useRouter } from "next/router";
+import userApi from "../api/user";
 
 export default function Dashboard() {
   const router = useRouter();
+
+  useEffect(() => {
+    async function apiCall() {
+        if(!await userApi.isLoggedIn()) {
+            router.push("/login");
+        }
+    }
+    apiCall();
+  }, []);
 
   return (
     <div>

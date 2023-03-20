@@ -1,4 +1,26 @@
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import userApi from "../../pages/api/user";
+
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    async function apiCall() {
+        if(await userApi.isLoggedIn()) {
+          setIsLoggedIn(true);
+        } else setIsLoggedIn(false);
+    }
+    apiCall();
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    router.push("/login");
+  }
+
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -19,31 +41,13 @@ export default function Navbar() {
 
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Citizen Login
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Police Login
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Hospital Login
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Ambulance Login
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                PWD B&R Login
-              </a>
-            </li>
+            {isLoggedIn ? (
+              <li class="nav-item">
+                <a class="nav-link" onClick={logout} style={{cursor: "pointer"}}>
+                  Logout
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>
