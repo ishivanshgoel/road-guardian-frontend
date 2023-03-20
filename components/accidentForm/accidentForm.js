@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import Iframe from "react-iframe";
 import MapComponent from "../mapComponent/mapComponent";
 
-export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbulanceInModal, setNoteForHospitalInModal }) {
+export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbulanceInModal, setNoteForHospitalInModal, submitReport, setLocationInModal }) {
   const [location, setLocation] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -20,6 +20,7 @@ export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbul
     setLocation(position);
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
+    setLocationInModal([position.coords.latitude, position.coords.longitude]);
   }
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function AccidentForm({ show, hide, toggleSwitch, setNoteForAmbul
       </Modal.Body>
 
       <Modal.Footer className="py-2">
-        <button className="btn btn-primary btn-block" onClick={toggleSwitch}>
+        <button className="btn btn-primary btn-block" onClick={submitReport}>
           Submit
         </button>
       </Modal.Footer>

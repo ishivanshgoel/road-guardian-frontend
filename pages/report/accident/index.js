@@ -3,6 +3,8 @@ import Head from "next/head";
 import Webcam from "react-webcam";
 import Navbar from "../../../components/navbar/navbar";
 import AccidentForm from "../../../components/accidentForm/accidentForm";
+import reportApi from "../../api/report";
+import { useRouter } from "next/router";
 
 const videoConstraints = {
   width: 400,
@@ -16,7 +18,9 @@ export default function AccidentReport() {
   const webcamRef = useRef(null);
   const [noteForHospital, setNoteForHospital] = useState("");
   const [noteForAmbulance, setNoteForAmbulance] = useState("");
-  
+  const [location, setLocation] = useState([]);
+  const router = useRouter();
+
   const capture = () => {
     if (allPictures.length >= 5) {
       alert("You can add maximum 5 photos");
@@ -34,6 +38,17 @@ export default function AccidentReport() {
 
   const setNoteForAmbulanceInModal = (note) => setNoteForAmbulance(note);
   const setNoteForHospitalInModal = (note) => setNoteForHospital(note);
+  const setLocationInModal = (loc) => setLocation(loc);
+
+  const submitReport = async() => {
+    console.log("called");
+    if(allPictures.length === 0) {
+        alert("All Pictures first");
+        return;
+    }
+    let res = await reportApi.reportAccident({ allPictures, noteForAmbulance, noteForHospital, location });
+    console.log(res);
+  }
 
   return (
     <div>
@@ -44,6 +59,8 @@ export default function AccidentReport() {
         toggleSwitch={toggleFormShow}
         setNoteForAmbulanceInModal={setNoteForAmbulanceInModal}
         setNoteForHospitalInModal={setNoteForHospitalInModal}
+        submitReport={submitReport}
+        setLocationInModal={setLocationInModal}
       />
 
       <Head>

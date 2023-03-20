@@ -21,10 +21,14 @@ export default function Navbar() {
     router.push("/login");
   }
 
+  const moveToDashBoard = () => {
+    router.push("/dashboard");
+  }
+
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" onClick={moveToDashBoard} style={{cursor: "pointer"}}>
           Road Guardian
         </a>
         <button
