@@ -14,6 +14,7 @@ const videoConstraints = {
 
 export default function AccidentReport() {
   const [allPictures, setAllPictures] = useState([]);
+  const [allBlobs, setAllBlobs] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const webcamRef = useRef(null);
   const [noteForHospital, setNoteForHospital] = useState("");
@@ -27,11 +28,27 @@ export default function AccidentReport() {
       return;
     }
     const pictureSrc = webcamRef.current.getScreenshot();
+    const blob = dataURItoBlob(pictureSrc);
+    console.log(blob);
     setAllPictures([...allPictures, pictureSrc]);
+    setAllBlobs([...allBlobs, blob]);
   };
+
+  function dataURItoBlob(dataurl) {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+  }
 
   const removeLastPhoto = () => {
     setAllPictures((previousArr) => previousArr.slice(0, -1));
+    setAllBlobs((previousArr) => previousArr.slice(0, -1));
   };
 
   const toggleFormShow = () => setShowForm(!showForm);
@@ -40,15 +57,20 @@ export default function AccidentReport() {
   const setNoteForHospitalInModal = (note) => setNoteForHospital(note);
   const setLocationInModal = (loc) => setLocation(loc);
 
-  const submitReport = async() => {
+  const submitReport = async () => {
     console.log("called");
-    if(allPictures.length === 0) {
-        alert("All Pictures first");
-        return;
+    if (allPictures.length === 0) {
+      alert("All Pictures first");
+      return;
     }
-    let res = await reportApi.reportAccident({ allPictures, noteForAmbulance, noteForHospital, location });
+    let res = await reportApi.reportAccident({
+      allBlobs,
+      noteForAmbulance,
+      noteForHospital,
+      location,
+    });
     console.log(res);
-  }
+  };
 
   return (
     <div>
